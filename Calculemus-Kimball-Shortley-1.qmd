@@ -1,0 +1,122 @@
+---
+title: "Kimball-Shortley Iterative method for eigenvalue problems"
+author: "LAAN"
+---
+
+------------------------------------------------------------------------
+
+### Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs[^1]
+
+[^1]: '*The Numerical Solution in Schrodinger's Equation*', G.E. Kimball and G.H. Shortley, Phys. Rev., **45,** 815, (1934)
+
+Le't assume the a 2nd-order ODE in normal form and fixed boundary conditions:
+
+$$
+\psi^{\prime\prime}(x) + U_0(x)\psi(x) = \lambda \psi(x), \qquad y(a) =y(b) = 0,
+$$
+
+formally being a Sturm-Liouville problem with kernel:
+
+$$
+\hat{L} = -\frac{d^2}{dx^2} + U_0(x)
+$$
+
+Upon a grid discretization $[x_1,x_2,\cdots,x_N]$ the SL eigenvalue equations translates to the below set of algebraic difference equations:
+
+$$
+\sum_{i=1}^{N} b_{jj}y_j = Ey_i, \qquad y_0 = y_{N+1} = 0, \qquad i=1(1)N
+$$ where, ideally, in a universe of exact computations, it is assumed that
+
+$$
+y_i \quad\to\quad \psi(x_i), \qquad \text{for}\qquad N\to\infty 
+$$
+
+For such wavefunctions (for the given grid) we assume the following value for the inner product (overlap):
+
+$$
+N_{\psi\phi} = \langle \psi|\phi\rangle :=\int_a^b dx \psi(x)\phi(x) = \sum_i c_i\psi_i\phi_i
+$$
+
+Introduction of this quadrature rule for the inner product allows to define the norm of a function as:
+
+$$
+ N_\phi := \sqrt{\langle \phi|\phi\rangle} 
+$$
+
+and the following quantity (in numerical analysis known as Rayleigh quotient (RQ), in quantum mechanics, the hamiltonian's expectation value for the quantum state $\Phi$):
+
+$$
+E[\phi] :=\frac{\langle \phi|B|\phi\rangle}{\langle \phi|\phi\rangle } = \frac{\sum_{ij}c_ib_{ij}\phi_i\phi_j}{\sum_i c_i\phi_i^2}
+$$
+
+The above expression for the RQ (or energy) is essentially a functional rather than a function, as it depends on the entire $\phi(x)$ via the discretized values $\phi_i$. We wish to examine its variation upon the variation of the values $\phi_i$; performing the relevant algebra and pointing that,
+
+$$
+\begin{align}
+\frac{\partial}{\partial \phi_i}(\langle \phi|B\phi\rangle) & = 2 c_i\sum_j b_{ij}\phi_j, \qquad\text{when}\qquad c_ib_{ij} = c_jb_{ji}
+\\
+\frac{\partial}{\partial \phi_i}(\langle \phi|\phi \rangle ) &= 2c_i\phi_i
+\end{align}
+$$
+
+we find the below expression:
+
+$$
+\frac{\partial E[\phi]}{\partial \phi_i} = - c_i\frac{2}{N_\phi^2} \left[E[\phi] \phi - \sum_j b_{ij}\phi_j\right]
+$$
+
+We know that,
+
+$$
+\frac{\delta E[\psi]}{\delta \phi_i} = 0,\qquad\to\qquad\text{when $E[\psi]$ is a stationary value},
+$$
+
+minimum, or maximum; this is possible (again following standard calculus of variations algebra) when all partial derivatives of $E[\phi]$ with respect to $\phi_i$ vanish, namely,
+
+$$
+\frac{\partial}{\partial \phi_i} E[\phi] = 0 \quad\to\quad \sum_j b_{ij}\phi_j = E[\phi]\phi_i
+$$
+
+But the last equation is exactly the FD equation for the unknown solution, $\psi$, which simply says that the solution gives the minimum/maximum value for the RQ (or energy).
+
+As our concern is to produce an iterative scheme for the solution we re-write the above condition as,
+
+$$
+(b_{ii} - E[\phi])\phi_i = -\sum_{j\ne i}b_{ij}\phi_j
+\quad\to\quad
+\boxed{\phi_i = \frac{\sum_{j\ne i}b_{ij}\phi_j}{E[\phi]-b_{ii}}, \qquad i=1(1)N}
+$$
+
+So, now we can write down few remarks for this central (iterative) equation of the present discussion:
+
+-   For the above expression it was assumed $\boxed{c_ib_{ij}=c_jb{ji}}$
+
+-   the weight coefficients, $c_i$ appear in the updating formula via the $E[\phi]$ expression and possibly in the $b_[ij]$ coefficients
+
+-   when $c_i=$ constant for all $i=1 (1)N$ then disappear from the expression for $E[\phi]$ and could be introduced via the $b_{ij}$ constants only.
+
+## Example
+
+Let's consider the below 2nd-order DE:
+
+$$
+-\frac{1}{2}\frac{dy^2}{dx^2} + V(x)y(x) = Ey(x) 
+$$
+
+Then upon discretization with a step $h$, and a three-point stencil for the 2nd derivative, we have the following rule holding for the values of the wavefunction on the grid points:
+
+$$
+\begin{aligned}
+-\frac{1}{2h^2}(y_{i-1} -2y_i + y_{i+1}) + V_iy_i  &= Ey_i, \qquad i = 1(1)N.
+\\
+y_0 = y_{N+1} &= 0
+\end{aligned}
+$$
+
+So the updating formula for the radial functions is as:
+
+$$
+y_i = -\frac{y_{i+1}/h^2 + y_{i-1}/h^2}{2E - (\frac{2}{h^2}+2V_i )}, \qquad i=1(1)N
+$$
+
+For a grid in the range $[a,b]=[0,b]$ we assume the fixed boundary conditions $y_0 = y_{N+1} = 0$.

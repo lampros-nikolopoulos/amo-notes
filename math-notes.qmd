@@ -1,0 +1,311 @@
+---
+title: "Second order ODEs in periodic solutions"
+author: "LAAN"
+---
+
+------------------------------------------------------------------------
+
+## Phase-amplitude method for 2nd-order ODEs
+
+------------------------------------------------------------------------
+
+Let's assume the following 2nd-order ODE[^1] :
+
+[^1]: Bessel equation corresponds to $U_0(x) = 1 -\frac{k^2-1/4}{x^2}$ while $U_0(x)=\frac{k^2-1/4}{1-x^2}, \quad |x|< 1$.
+
+$$
+y^{\prime\prime}(x) + U_0(x) y(x) = 0, \qquad \qquad U(x) > 0  
+$$ {#eq-normal-ode2}
+
+In regions where, $U_0> 0$, the solution is of oscillatory, otherwise is of exponential decay/growth nature[^2].
+
+[^2]: Note that \$U_0(x) = 1- (k\^2 - 1/4)/x\^2 \$ corresponds to the Bessel equation.
+
+We start by extending the analysis to include solutions in the complex domain as well thus associating $y(x)\to z(x)$, by performing an exponential transformation of the type:
+
+$$
+z(x) = A(x)e^{\imath\phi(x)}, \qquad A(x),\phi(x)\; \text{purely real valued functions}
+$$ {#eq-yx}
+
+we end up to the following Ricatti ODE (non-linear though):
+
+$$
+Y^\prime (x) + Y^2(x) + 2\frac{A^\prime(x)}{A(x)}Y(x) + W(x) = 0,
+$$ {#eq-ricatti}
+
+where,
+
+$$
+\begin{align}
+Y(x) &= \imath \phi^\prime(x)
+\\
+U(x) &= U_0(x) + \frac{A^{\prime\prime}(x)}{A(x)}
+\end{align}
+$$ {#eq-v-potential}
+
+At this point it helps to set,
+
+$$
+k(x)=\phi^\prime(x) = -\imath Y(x) \qquad\to\qquad \phi(x) = \int_{x_0}^x dx^\prime k(x) + \phi(x_0)
+$$ {#eq-phix}
+
+which results to a separation of the Ricatti equation to its real and imaginary part:
+
+$$
+k(x) = \sqrt{U(x)}, \qquad\qquad\quad k^\prime(x) + 2 \frac{A^\prime(x)}{A(x)}k(x) = 0.
+$$
+
+The first equation and the second equation give, respectively:
+
+$$
+\frac{k^\prime(x)}{2k(x)} = \frac{U^\prime(x)}{4U(x)}, \qquad\qquad \frac{k^\prime(x)}{2k(x)} = - \frac{A^\prime(x)}{A(x)} 
+$$
+
+Elimination of the ratio $k^\prime/k$ results to calculation of the amplitude $A(x)$ in terms of $W(x)$; taking into account (@eq-phix) we have:
+
+$$
+\boxed{A(x) = \frac{A_0}{ \sqrt[4]{U(x)}}, \qquad \quad \phi(x) = \int_{x_0}^{x}dx^\prime\sqrt{U(x^\prime)}+\phi(x_0).} 
+$$ {#eq-amplitude-phase}
+
+At this stage we have expressed both $A(x)$ and $\phi(x)$ in terms of the potential $W(x)$. Substituting in the solution (@eq-yx) we arrive at:
+
+$$
+\begin{align}
+z(x) & = \frac{A_0}{\sqrt[4]{U(x)}}e^{\imath \int_{x_0}^x dx^\prime \sqrt{U(x^\prime)} + \phi(x_0)},
+\end{align}
+$$ {#eq-yx-full}
+
+As both the real and the imaginary parts are solutions of the original equation (as it can easily be verified) we may obtain the *general solution* as their linear combination:
+
+$$
+y(x) = A_1\Re{z(x)}+A_2\Im{z(x)} 
+$$ From this expression and following some standard definitions of the arbitrary constants of $A_1,A_2$ we arrive at the following general solution for the real valued $y(x)$:
+
+$$
+\begin{align}
+y(x) &= \frac{c}{\sqrt[4]{U(x)}}\cos(\int_{x_0}^x dx^\prime \sqrt{U(x^\prime)} - \theta),
+\end{align}
+$$
+
+where $A_0$ and $\phi(x_0)$ as well as $A_1,A_2$ have been absorbed into the new constants, $c,\theta$.
+
+Thus we end to the following general observation:
+
+*The solution of an arbitrary linear, homogeneous, 2nd-order ODE, with* $U(x)>0$ *is of oscillatory nature with variable frequency and amplitude; Moreover, frequency and amplitude are dependent to each other,*
+
+*The amplitude of the solution is inversely proportional to the square root of the 'instantaneous frequency'* $k(x)$*.*
+
+This form of $y(x)$ expresses the separations (and its dependence) of the solution to an amplitude and a phase (unknown) part, which as are given depend on the value of $A^{\prime\prime}(x)/A(x)$ in the given interval $[a,x]$ (as it is evident from the expression of $U(x)$ in @eq-yx.
+
+But then, how $y(x)$ is practically calculated?
+
+### WKB approximation
+
+We first note that the so-called WKB approximation is based on the assumption to neglecting the second term of the RHS of @eq-v-potential
+
+$$
+U(x) = U_0(x) + \frac{A^{\prime\prime}(x)}{A(x)} \simeq U_0(x),
+$$
+
+with the WKB approximated solution written in terms of the given potential $U_0(x)$ by:
+
+$$
+y_{wkb}(x)\simeq \frac{c}{\sqrt[4]{U_0(x)}}\cos\left(\int_{x_0}^x dx^\prime \sqrt{U_0(x^\prime)} - \theta\right), \qquad x_0\;\text{arbitrary reference point}
+$$
+
+At the moment will not pursue this further as the main focus is the exact solution of the phase-amplitude form of the ODE.
+
+### Exact solution
+
+In this case it is possibly most convenient to work with the amplitude $A(x)$, rather than the modified potential $U(x)$; to this end we first replace $U(x)= A_0^4/A^4(x)$ in the second equation of (@eq-v-potential) to obtain a differential equation for the amplitude $A(x)$:
+
+$$
+U_0(x) + \frac{A^{\prime\prime}(x)}{A(x)} = \frac{1}{A^4(x)}
+\qquad\to\qquad
+A^{\prime\prime}(x) + U_0(x)A(x) = \frac{1}{A^3(x)}
+$$
+
+The resulting equation for the amplitude $A(x)$ is known as *Ermakov equation, and the solution is now expressed as:*
+
+$$
+\begin{align*}
+y(x) &= A(x)\cos(\int_{x_0}^x \frac{dx^\prime}{A^2(x^\prime)} - \theta),
+\qquad x_0 \; \text{arbitrary reference point}
+\\
+& = \frac{1}{\sqrt{k(x)}}\cos\left(\int_{x_0}^x dx k(x) -\theta\right)
+\end{align*}
+$$
+
+where the constants, $c$, and $A_0$ have been absorbed in the definition of $A(x)$ and $k(x) = 1/A^2(x)$, for convenience. Note that $k(x)$ is known as the *instantaneous* wave-number while in the case where $x$ represents time would correspond to *instantaneous* frequency and denoted by $\omega(t)$.
+
+Succeeding to solve this non-linear ODE, the value of $U(x)$ is known everywhere in the desired interval $[a,x]$ and thus we can calculate the phase $\phi(x)$ from ( @eq-amplitude-phase) following any numerical quadrature we please .
+
+## Simple harmonic oscillator potential, $U_0(x)=k^2$
+
+As an instructive example let's examine the simple case of a constant potential and apply the oscillatory form of the solution. In this case the DE for the amplitude is given by:
+
+$$
+A^{\prime\prime}(x) + k^2A(x) = \frac{1}{A^3(x)}
+$$
+
+where the constant $a_0$ is absorbed in the determination of of $A(x)$ without any loss of generality.
+
+Following E. Pinney (*Proceedings of the American Mathematical Society, 1, 681, (1950), 'The nonlinear differential equation* $y^{\prime\prime}+p(x)y + cy^{-3}=0$ *'),* $A(x)$ the solution can be expressed in terms of two linearly independent solutions, $u(x),v(x)$ of the corresponding homogeneous equation,
+
+$$
+y_0^{\prime\prime}(x) + k^2y_0(x)  = 0, 
+$$
+
+with the following properties:
+
+$$
+u(x_0) = y(x_0) \ne 0, \qquad u^\prime(x_0) = y^\prime(x_0), \qquad v(x_0) = 0
+$$
+
+and any arbitrary value for the first derivative of $v^\prime(x_0)=v_1$. Then,
+
+$$
+y(x) = \sqrt{u^2(x) - \frac{c}{W^2}v^2(x)}, \qquad W = W[u,v]\quad \text{is the Wroskian}
+$$
+
+In the present case, of $U(x) = k^2$ and $c=-1$, two solutions satisfying the required conditions are the following:
+
+$$
+\begin{align}
+u(x) &= u_0\cos k(x-x_0) + \frac{u_1}{k}\sin k(x-x_0),
+\\
+v(x) & = \frac{v_1}{k} \sin k(x-x_0)
+\\
+W &= u_0 v_1
+\end{align}
+$$
+
+where $v_1=u^\prime(x_0)$ and $v_1 = v^\prime(x_0)$. Then we obtain for the amplitude the below expression:
+
+$$
+A(x) = \sqrt{u_0^2\cos^2 k(x-x_0) + \frac{1+u_0^2u_1^2}{u_0^2k^2}\sin^2 k(x-x_0) +\frac{u_0u_1}{k}\sin 2k(x-x_0)}
+$$
+
+One immediate observation of this solution is that it doesn't depend on the value of $v_1=v^\prime(x_0)$. The full solution as is given by (@eq-yx-full) is:
+
+$$
+y(x) = A(x)\cos\left[ 
+\int_{x_0}^x  \frac{dx^\prime}{u_0^2\cos^2k(x^\prime-x_0) + \frac{1+u_0^2u_1^2}{u_0^2k^2}\sin^2k(x^\prime-x_0) +\frac{u_0u_1}{k}\sin 2k(x^\prime-x_0)} -\theta\right]
+$$
+
+where $\theta$ is a constant determined by the initial/boundary conditions; not necessaril at the $x_0$ point. However assuming that the information is give at this point we have, for $y(x_0)$ and $y^\prime(x_0)$:
+
+$$
+y(x_0) = u_0\cos\theta, \qquad y^\prime(x_0) = u_1 \cos\theta + \frac{1}{u_0}\sin\theta
+$$ {#eq-initial-conditions}
+
+As the indefinite integral $1/A^2(x)$ is calculated to be:
+
+$$
+\begin{align*}
+\int_{x_0}^x \frac{1}{A^2(x^\prime)} & = \frac{k}{|k|}\tan^{-1}\left[\frac{1+u_0^2u_1^2}{u_0^2 k}\tan k(x-x_0) + u_0u_1 \right]_{x_0}^x
+\\
+&= sgn(k)\left[\tan^{-1}\left(\frac{1+u_0^2u_1^2}{u_0^2 k}\tan k(x-x_0) + u_0u_1\right) - \tan^{-1}(u_0u_1)  \right]
+\\
+&= sgn(k)\tan^{-1}\left[\frac{1}{u_0k}\frac{\sin k(x-x_0)}{u_0 \cos k(x-x_0) + (u_1/k)\sin k(x-x_0)}\right]
+\\
+&=sgn(k)\cos^{-1}\left[\frac{u_0\cos k(x-x_0) +(u_1/k)\sin k(x-x_0)}{A(x)}\right]
+\\
+&=sgn(k)\sin^{-1}\left[\frac{1}{u_0k}\frac{\sin k(x-x_0)}{A(x)}\right]  
+\end{align*}
+$$
+
+where the trigonometric identities,
+
+$$
+\begin{align*}
+\tan^{-1} a \pm \tan^{-1} b = \tan^{-1}\frac{a\pm b}{1 \pm a b}, 
+\\
+\tan^{-1}x = \cos^{-1}(\frac{1}{\sqrt{1+x^2}}) = \sin^{-1}(\frac{x}{\sqrt{1+x^2}})  
+\end{align*}
+$$
+
+were used. Armed with these expressions we then confirm for the solution in terms of the amplitude and phase via evaluation of the $A(x)$:
+
+$$
+\begin{align*}
+y(x) &= A(x)\cos\left[\int_{x_0}^xdx^\prime k(x^\prime)\right] \cos\theta + \sin\left[\int_{x_0}^xdx^\prime k(x^\prime)\right] \sin \theta
+\\
+&= u_0\cos\theta \cos k(x-x_0) + \frac{1}{k}(u_1\cos\theta + \frac{1}{u_0}\sin\theta)\sin kx
+\end{align*}
+$$
+
+So eventually for the given (@eq-normal-ode2) for $U_0(x) = k^2$ with initial conditions, $y_0,y_1$ for the solution and its first derivative we end up to,
+
+$$
+\boxed{
+y(x) = y_0 \cos k(x-x_0) + \frac{y_1}{k}\sin k(x-x_0) = A_0\cos [ k(x-x_0) - \theta] 
+}
+$$
+
+where use of (@eq-initial-conditions) was made and amplitude with $A_0$ and constant phase, $\theta$, defined as:
+
+$$
+A_0 = \sqrt{y_0^2 + (\frac{y_1}{k})^2}, \qquad \tan \theta = \frac{y_1}{k\,y_0 }
+$$
+
+Thus we have arrived the phase-amplitude separation method, to the well known result for the simple harmonic oscillator potential;
+
+We can make two important remark at this point:
+
+*-- The* $A(x)$ *and* $k(x)$ *are necessarily interrelated*
+
+*-- The solution's separation in terms of amplitude and phase isn't unique for the following reason:*
+
+The particular form of $A(x)$ it depends on the values $u_0,u_1$ and $v_1$ (since $v_0 = 0$); however for any given set of initial conditions $y_0,y_1$ the values $u_0$ and $u_1$ are also determined; however $v_1$ remains a free parameter with the result that we may have different $A(x),k(x)$ functions which combine to produce the same $y(x)$.
+
+Moreover in the special case where either $y_0$ or $y_1$ are zero we have an extra free parameter available, that is the $u_0$. (ΤΟ ΒΕ INVESTIGATED MORE)
+
+#### A special case (y(0) = 0, k = 1)
+
+Then from (@eq-initial-conditions) we have, $\theta = \pi/2$ and $y^\prime(0) = 1/u_0$. The solution is,
+
+$$
+y(x) = \frac{y_1}{k}\sin kx = \frac{1}{u_0k}\sin kx
+$$
+
+For $A(x)$ and the instantaneous wavenumber(frequency), $k(x)$, we have,
+
+$$
+A(x) = \sqrt{u_0^2 \cos^2 x+ \frac{2}{u_0^2}\sin^2 x + \sin 2x}, \qquad k(x) = \frac{1}{A^2(x)}
+$$
+
+```{r}
+
+  ax <- function(x, a, b) {
+       return ( sqrt( a*a*cos(b*x)*cos(b*x) + (2.0/(a*a)) * sin(b*x)*sin(b*x) + sin(2*b*x) ) ) 
+  }
+
+ x <- seq(0, 10, length.out = 100) # Create a sequence of x values
+
+   # Plot the function with different parameter values
+   plot(  x, ax(x, a = 1,   b = 1), type = "l", col = "blue", main = "Linear Function", xlab = "x", ylab = "y") # Default parameters
+   points(x, ax(x, a = 1.5,   b = 1), type = "l", col = "red") # Another set of parameters
+   points(x, ax(x, a = 0.5, b = 1), type = "l", col = "green") # Yet another set
+   legend("topright", legend = c("a=1, b=1", "a=2, b=1", "a=0.5, b=1"), col = c("blue", "red", "green"), lty = 1)
+   
+  integrand <- function(x) {1.0/(ax(x,a=1,b=1)*ax(x,a=1,b=1))}
+  x1 <- integrate(integrand, lower = 0, upper = 10)
+  x1
+   yx <- function(x, a, b) {
+       return ( sin(x)/(a*b) ) 
+   }
+   
+  
+  y <- ax(10,a=1,b=1) * sin (9.799527)
+  yx(10,a=1,b=1)
+  y
+  
+  integrand <- function(x) {1.0/(ax(x,a=1.5,b=1)*ax(x,a=1.5,b=1))}
+  x2 <- integrate(integrand, lower = 0, upper = 10)
+  x2
+  y2 <- ax(10,a=1.5,b=1) * sin (9.644854)
+  yx(10,a=1.5,b=1)
+  y2
+  
+```

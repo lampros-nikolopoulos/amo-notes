@@ -1,0 +1,281 @@
+---
+title: "Hydrogen Dipole matrix elements using the Factorization method"
+format: pdf
+pdf-engine: lualatex
+---
+
+## Factorization formula(s)
+
+First we assume the relativistic (spinor) hydrogen wavefunction \[Eq. (7.4.89) of Biedernharn-Louck book\]:
+
+$$
+\phi_{Ekm}(\mathbf{r)} = R_{El(k)}(r)\chi_{km}(\Omega) =R_{El(k)}(r)\mathbf{Y}^{l_k\frac{1}{2}}_{j_km}(\Omega),
+$$
+
+with $\mathbf{Y}^{l_k\frac{1}{2}}_{j_km}(\Omega)$ given by (6.57) for the spin-1/2 case.
+
+The values of $l_k$ are related with $k$ and $l$ as: 
+\begin{align} 
+\kappa > 0  & \quad\to\quad 
+\begin{cases} 
+l(\kappa) & = \kappa = l
+\\
+l(-\kappa) & = \kappa -1 = l - 1 
+\end{cases} 
+\\ 
+  \kappa < 0 & \quad\to\quad 
+\begin{cases} 
+l(\kappa) & = -\kappa - 1 = l 
+\\ 
+l(-\kappa) & = -\kappa = l + 1 
+\end{cases}
+\end{align}
+Since the spinor part is fully determined from the $\kappa, m$ values we focus on the radial part. Taken into account various symmetry properties we may arrive at the below (relativistic) formula as is expressed in 7.4.100 of Biedernharn-Louck book: \begin{align}
+&\left[1 - \kappa \left(\frac{d}{dr} + \frac{k+1}{r} \right)\right] R_{\eta l(\kappa)}(r)  = 
+\left[1 - \varepsilon \frac{k^2}{\eta^2} \right]^{1/2}R_{\eta l(-\kappa)}(r) 
+ \\ 
+ &
+ \\
+\eta &= 
+\begin{cases} 
+n = 1,2,\cdots, & E = -1/n^2 < 0,\quad \varepsilon = +1 
+\\ 
+1, & E = 0, \quad \varepsilon = 0 
+\\ 
+\frac{1}{k} > 0 & E = k^2> 0, 
+\quad \varepsilon = -1 
+\end{cases}
+\end{align}
+
+From the above relation we may obtain a recurrence relation for the radial part of the corresponding (non-relativistic) radial functions:
+
+$$
+\left[1 + (l+1) \left(\frac{d}{dr} - \frac{l}{r} \right)\right]R_{\eta l}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}R_{\eta l+1}(r)
+$$ {#eq-fac-1}
+
+$$
+\left[1 - l \left(\frac{d}{dr} + \frac{l+1}{r} \right)\right]R_{\eta l}(r)  =
+\left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2}R_{\eta l-1}(r)
+$$ {#eq-fac-2}
+
+Let's take the latter equation ( @eq-fac-2 ) and substitute $l\to l+1$; then we instead get:
+
+$$
+\left[1 - (l+1) \left(\frac{d}{dr} + \frac{l+2}{r} \right)\right]R_{\eta l+1}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}R_{\eta l}(r)
+$$
+
+Now we continue by substitution of the $P_{\eta l}(r)$ radial function, defined by:
+
+$$
+R_{\eta l}(r) =\frac{1}{r}P_{\eta l}(r)
+$$
+
+In this case the recurrence relation becomes:
+
+$$
+\left[1 - (l+1) \left(\frac{d}{dr} + \frac{l+1}{r} \right)\right]P_{\eta l+1}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}P_{\eta l}(r)
+$$
+
+This is one of the two main equations for the recurrence relation for $P_{\eta l}(r)$; Multiplying both sides with $P_{\eta^\prime l}(r)$ and integrating over the radial variable we find,
+
+$$
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle - (l+1)  \langle P_{\eta^\prime l}| \left(\frac{d}{dr} + \frac{l+1}{r} \right)|P_{\eta l+1} \rangle = \delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+$$
+
+since the radial functions $R_{\eta l}(r)$ are assumed orthonormalized (orthogonal because are solutions of the same radial Hamiltonian); note that we define:
+
+$$
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle :=
+\int_0^\infty dr\, P_{\eta^\prime l}(r)P_{\eta l+1}(r) =  \int_0^\infty dr\, r^2 R_{\eta^\prime l}(r)R_{\eta l+1}(r)
+$$
+
+Eventually we obtain the following relation:
+
+$$
+\boxed{
+(l+1)  \langle P_{\eta^\prime l}| \left(\frac{d}{dr} + \frac{l+1}{r} \right)|P_{\eta l+1} \rangle = 
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle -
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+}
+$$ {#eq-dmx-1}
+
+Also, by making the change $l\to l-1$ in ( @eq-fac-1 ) we obtain instead:
+
+$$
+\boxed{
+l \langle P_{\eta^\prime l}| \left(\frac{d}{dr} - \frac{l}{r} \right)|P_{\eta l-1} \rangle = 
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2} - \langle P_{\eta^\prime l}|P_{\eta l-1} \rangle 
+}
+$$ {#eq-dmx-2}
+
+Note that we can arrive at the same relation if we instead have started from ( @eq-dmx-1 ), changing $l\to l-1$ and then using the boundary conditions (BCs) (also swapping the $\eta \leftrightarrow \eta^\prime$ between the states) to write:
+
+$$
+P_{\eta l}(a)P_{\eta l'}(b) = P_{\eta l}(a) P_{\eta l}(b),
+$$
+
+which hold for our case of infinitely extended space ( $P(0) = 0$ and $P(r\to\infty) \to 0$ ). The latter BCs (needed to ensure the self-adjointess of the momentum operator), require $\langle P_{\eta l}|P^\prime_{\eta l^\prime}\rangle = -\langle P^\prime_{\eta l}|P_{\eta l^\prime}\rangle$ .
+
+We notice that the second term in the LHS of ( @eq-dmx-1 and @eq-dmx-2) is the radial dipole operator in the velocity gauge for transitions $l\to l+1$ and $l\to l-1$ respectively; then we can write:
+
+$$
+d^{(v)}_{\eta^\prime l;\eta l+1} = \frac{1}{l+1}
+\left[
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle - \delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+\right]
+$$ {#eq-dmx-11}
+
+and
+
+$$
+d^{v}_{\eta^\prime l;\eta l-1} = - \frac{1}{l}
+\left[ \langle P_{\eta^\prime l}|P_{\eta l-1} \rangle -
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2}  
+\right]
+$$
+
+### 
+
+*We then reach at the important conclusion that for the calculation of the dipole matrix elements we only need to calculate the overlap integrals between the involved states; this makes redundant the calculation of matrix elements between states and their derivatives as well as non-diagonal matrix elements of the* $1/r$
+
+In the below we give few specific examples for the case of hydrogen.
+
+**Note:** need to check whether the below relation holds generally:
+
+$$
+\langle P_{nl}|(\frac{d}{dr} + \frac{l+1}{r})|P_{nl+1}\rangle = 0, 
+$$
+
+if non-zero it would correspond to a transition (say EM transition) with a static field ($\omega = 0$), with the exchange of angular momentum $(l=1)$ without exchanging energy.
+
+#### Normalized Radial Wavefunctions for Hydrogen
+
+First we resume the properties for the hydrogen wavefunction. As usual, we use atomic units $\hbar=m_e=e=1/4\pi\varepsilon_0=1)$. We also assume, the radial wavefunctions \$R\_{nl}(r) \$ are normalized such that:
+
+$$
+\int_0^\infty |R_{nl}(r)|^2 r^2 \, dr = 1
+$$
+
+let's take the the $2s \to 3p$ transition; the two radial (reduced) functions are given by,
+
+$$
+P_{20}(r) = \frac{1}{2\sqrt 2}(2-r)e^{-r/2}, \qquad P_{31}(r) = \frac{4}{81\sqrt 6}r(6-r)e^{-r/3}
+$$
+
+We apply (@eq-dmx-1) for this case with $\varepsilon = - 1, \eta = 0,1,2,\dots$ and $(n^\prime,l)=(2,0) \to (n,l) = (3,1)$; since the energy differs we have $\delta_{\eta^\prime\eta=0}$ and need to verify the below equation:
+
+$$
+(0+1) \left( \langle P_{20}|P^\prime_{31}\rangle +  \langle P_{20}|\frac{0+1}{r}|P_{31}\rangle\right) 
+= \langle P_{20}|P_{31}\rangle
+\quad\to\quad 
+\langle P_{20}|P^\prime_{31}\rangle +  \langle P_{20}|\frac{1}{r}|P_{31}\rangle = \langle P_{20}|P_{31}\rangle
+$$ {#eq-dmx-20-31}
+
+The integrations for the given radial functions are quite straightforward to obtain by various means:
+\begin{align}
+\langle P_{20}|P^\prime_{31}\rangle &= \frac{88128}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
+\\
+\langle P_{20}|\frac{1}{r}|P_{31}\rangle &= \frac{5184}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
+\\
+\langle P_{20}|P_{31}\rangle &= \frac{93312}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
+\end{align}
+
+It's not difficult that to see that ( @eq-dmx-20-31 ) holds since 88128 + 5184 = 93312.
+
+We can also check the case where the principal quantum number is the same; for example the validity of (@eq-dmx-1) for $\eta = n=3, l=0\to1$ (so, $\varepsilon = 1$),
+
+$$
+(0+1)  \langle P_{30}| \left(\frac{d}{dr} + \frac{0+1}{r} \right)|P_{31} \rangle = 
+\langle P_{3 0}|P_{31} \rangle - \left[1 -\frac{(0+1)^2}{3^2} \right]^{1/2}
+$$
+
+The LHS is identically zero, so it remains to show that,
+
+$$
+\langle P_{3 0}|P_{31} \rangle = \frac{\sqrt{8}}{3}
+$$
+
+We have for the integral
+
+$$
+\langle P_{30}|P_{31}\rangle = \int_0^\infty dr \frac{2}{81\sqrt{3}} r\left(27 - 18r + 2r^2 \right) e^{-r/3} \times \frac{8}{27\sqrt{6}} , r \left(1 - \frac{r}{6} \right) e^{-r/3} 
+$$
+
+------------------------------------------------------------------------
+
+### ( n = 1 )
+
+-   ( l = 0 )
+
+$$
+R_{10}(r) = 2 e^{-r}
+$$
+
+------------------------------------------------------------------------
+
+### ( n = 2 )
+
+-   ( l = 0 )
+
+$$
+R_{20}(r) = \frac{1}{\sqrt{2}} \left(1 - \frac{r}{2} \right) e^{-r/2}
+$$
+
+-   ( l = 1 )
+
+$$
+R_{21}(r) = \frac{1}{2\sqrt{6}} \, r \, e^{-r/2}
+$$
+
+------------------------------------------------------------------------
+
+### ( n = 3 )
+
+-   ( l = 0 )
+
+$$
+R_{30}(r) = \frac{2}{81\sqrt{3}} \left(27 - 18r + 2r^2 \right) e^{-r/3}
+$$
+
+-   ( l = 1 )
+
+$$
+R_{31}(r) = \frac{8}{27\sqrt{6}} \, r \left(1 - \frac{r}{6} \right) e^{-r/3}
+$$
+
+-   ( l = 2 )
+
+$$
+R_{32}(r) = \frac{4}{81\sqrt{30}} \, r^2 \, e^{-r/3}
+$$
+
+------------------------------------------------------------------------
+
+### ( n = 4 )
+
+-   ( l = 0 )
+
+$$
+R_{40}(r) = \frac{1}{96\sqrt{6}} \left(96 - 72r + 12r^2 - r^3 \right) e^{-r/4}
+$$
+
+-   ( l = 1 )
+
+$$
+R_{41}(r) = \frac{1}{96\sqrt{30}} \, r \left(48 - 18r + r^2 \right) e^{-r/4}
+$$
+
+-   ( l = 2 )
+
+$$
+R_{42}(r) = \frac{1}{768\sqrt{5}} \, r^2 \left(12 - r \right) e^{-r/4}
+$$
+
+-   ( l = 3 )
+
+$$
+R_{43}(r) = \frac{1}{768\sqrt{35}} \, r^3 \, e^{-r/4}
+$$

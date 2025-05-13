@@ -1,0 +1,5 @@
+---
+title: "Motion in Central fields"
+author: "LAAN"
+format: beamer
+---
