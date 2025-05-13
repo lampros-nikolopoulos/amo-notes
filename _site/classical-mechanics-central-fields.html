@@ -8,7 +8,7 @@
 
 <meta name="author" content="LAAN">
 
-<title>Kimball-Shortley Iterative method for eigenvalue problems – lampros-nikolopoulos.github.io</title>
+<title>Motion in Central fields – lampros-nikolopoulos.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,49 +68,6 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -152,21 +109,14 @@ window.Quarto = {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" id="toc-kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" class="nav-link active" data-scroll-target="#kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1">Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
-  </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Calculemus-Kimball-Shortley-1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Calculemus-Kimball-Shortley-1.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
-    </div>
+        
+    <div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="classical-mechanics-central-fields.pdf"><i class="bi bi-file-pdf"></i>Beamer</a></li></ul></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kimball-Shortley Iterative method for eigenvalue problems</h1>
+<h1 class="title">Motion in Central fields</h1>
 </div>
 
 
@@ -189,100 +139,10 @@ window.Quarto = {
 </header>
 
 
-<hr>
-<section id="kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" class="level3">
-<h3 class="anchored" data-anchor-id="kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1">Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
-<p>Le’t assume the a 2nd-order ODE in normal form and fixed boundary conditions:</p>
-<p><span class="math display">
-\psi^{\prime\prime}(x) + U_0(x)\psi(x) = \lambda \psi(x), \qquad y(a) =y(b) = 0,
-</span></p>
-<p>formally being a Sturm-Liouville problem with kernel:</p>
-<p><span class="math display">
-\hat{L} = -\frac{d^2}{dx^2} + U_0(x)
-</span></p>
-<p>Upon a grid discretization <span class="math inline">[x_1,x_2,\cdots,x_N]</span> the SL eigenvalue equations translates to the below set of algebraic difference equations:</p>
-<p><span class="math display">
-\sum_{i=1}^{N} b_{jj}y_j = Ey_i, \qquad y_0 = y_{N+1} = 0, \qquad i=1(1)N
-</span> where, ideally, in a universe of exact computations, it is assumed that</p>
-<p><span class="math display">
-y_i \quad\to\quad \psi(x_i), \qquad \text{for}\qquad N\to\infty
-</span></p>
-<p>For such wavefunctions (for the given grid) we assume the following value for the inner product (overlap):</p>
-<p><span class="math display">
-N_{\psi\phi} = \langle \psi|\phi\rangle :=\int_a^b dx \psi(x)\phi(x) = \sum_i c_i\psi_i\phi_i
-</span></p>
-<p>Introduction of this quadrature rule for the inner product allows to define the norm of a function as:</p>
-<p><span class="math display">
-N_\phi := \sqrt{\langle \phi|\phi\rangle}
-</span></p>
-<p>and the following quantity (in numerical analysis known as Rayleigh quotient (RQ), in quantum mechanics, the hamiltonian’s expectation value for the quantum state <span class="math inline">\Phi</span>):</p>
-<p><span class="math display">
-E[\phi] :=\frac{\langle \phi|B|\phi\rangle}{\langle \phi|\phi\rangle } = \frac{\sum_{ij}c_ib_{ij}\phi_i\phi_j}{\sum_i c_i\phi_i^2}
-</span></p>
-<p>The above expression for the RQ (or energy) is essentially a functional rather than a function, as it depends on the entire <span class="math inline">\phi(x)</span> via the discretized values <span class="math inline">\phi_i</span>. We wish to examine its variation upon the variation of the values <span class="math inline">\phi_i</span>; performing the relevant algebra and pointing that,</p>
-<p><span class="math display">
-\begin{aligned}
-\frac{\partial}{\partial \phi_i}(\langle \phi|B\phi\rangle) &amp; = 2 c_i\sum_j b_{ij}\phi_j, \qquad\text{when}\qquad c_ib_{ij} = c_jb_{ji}
-\\
-\frac{\partial}{\partial \phi_i}(\langle \phi|\phi \rangle ) &amp;= 2c_i\phi_i
-\end{aligned}
-</span></p>
-<p>we find the below expression:</p>
-<p><span class="math display">
-\frac{\partial E[\phi]}{\partial \phi_i} = - c_i\frac{2}{N_\phi^2} \left[E[\phi] \phi - \sum_j b_{ij}\phi_j\right]
-</span></p>
-<p>We know that,</p>
-<p><span class="math display">
-\frac{\delta E[\psi]}{\delta \phi_i} = 0,\qquad\to\qquad\text{when $E[\psi]$ is a stationary value},
-</span></p>
-<p>minimum, or maximum; this is possible (again following standard calculus of variations algebra) when all partial derivatives of <span class="math inline">E[\phi]</span> with respect to <span class="math inline">\phi_i</span> vanish, namely,</p>
-<p><span class="math display">
-\frac{\partial}{\partial \phi_i} E[\phi] = 0 \quad\to\quad \sum_j b_{ij}\phi_j = E[\phi]\phi_i
-</span></p>
-<p>But the last equation is exactly the FD equation for the unknown solution, <span class="math inline">\psi</span>, which simply says that the solution gives the minimum/maximum value for the RQ (or energy).</p>
-<p>As our concern is to produce an iterative scheme for the solution we re-write the above condition as,</p>
-<p><span class="math display">
-(b_{ii} - E[\phi])\phi_i = -\sum_{j\ne i}b_{ij}\phi_j
-\quad\to\quad
-\boxed{\phi_i = \frac{\sum_{j\ne i}b_{ij}\phi_j}{E[\phi]-b_{ii}}, \qquad i=1(1)N}
-</span></p>
-<p>So, now we can write down few remarks for this central (iterative) equation of the present discussion:</p>
-<ul>
-<li><p>For the above expression it was assumed <span class="math inline">\boxed{c_ib_{ij}=c_jb{ji}}</span></p></li>
-<li><p>the weight coefficients, <span class="math inline">c_i</span> appear in the updating formula via the <span class="math inline">E[\phi]</span> expression and possibly in the <span class="math inline">b_[ij]</span> coefficients</p></li>
-<li><p>when <span class="math inline">c_i=</span> constant for all <span class="math inline">i=1 (1)N</span> then disappear from the expression for <span class="math inline">E[\phi]</span> and could be introduced via the <span class="math inline">b_{ij}</span> constants only.</p></li>
-</ul>
-</section>
-<section id="example" class="level2">
-<h2 class="anchored" data-anchor-id="example">Example</h2>
-<p>Let’s consider the below 2nd-order DE:</p>
-<p><span class="math display">
--\frac{1}{2}\frac{dy^2}{dx^2} + V(x)y(x) = Ey(x)
-</span></p>
-<p>Then upon discretization with a step <span class="math inline">h</span>, and a three-point stencil for the 2nd derivative, we have the following rule holding for the values of the wavefunction on the grid points:</p>
-<p><span class="math display">
-\begin{aligned}
--\frac{1}{2h^2}(y_{i-1} -2y_i + y_{i+1}) + V_iy_i  &amp;= Ey_i, \qquad i = 1(1)N.
-\\
-y_0 = y_{N+1} &amp;= 0
-\end{aligned}
-</span></p>
-<p>So the updating formula for the radial functions is as:</p>
-<p><span class="math display">
-y_i = -\frac{y_{i+1}/h^2 + y_{i-1}/h^2}{2E - (\frac{2}{h^2}+2V_i )}, \qquad i=1(1)N
-</span></p>
-<p>For a grid in the range <span class="math inline">[a,b]=[0,b]</span> we assume the fixed boundary conditions <span class="math inline">y_0 = y_{N+1} = 0</span>.</p>
 
 
-</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>‘<em>The Numerical Solution in Schrodinger’s Equation</em>’, G.E. Kimball and G.H. Shortley, Phys. Rev., <strong>45,</strong> 815, (1934)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

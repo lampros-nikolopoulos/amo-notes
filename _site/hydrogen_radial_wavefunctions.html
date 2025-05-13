@@ -6,9 +6,8 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="LAAN">
 
-<title>Kimball-Shortley Iterative method for eigenvalue problems – lampros-nikolopoulos.github.io</title>
+<title>Hydrogen Dipole matrix elements using the Factorization method – lampros-nikolopoulos.github.io</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -68,22 +67,8 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
-  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
-  <script>document.addEventListener("DOMContentLoaded", function () {
- var mathElements = document.getElementsByClassName("math");
- var macros = [];
- for (var i = 0; i < mathElements.length; i++) {
-  var texText = mathElements[i].firstChild;
-  if (mathElements[i].tagName == "SPAN") {
-   katex.render(texText.data, mathElements[i], {
-    displayMode: mathElements[i].classList.contains('display'),
-    throwOnError: false,
-    macros: macros,
-    fleqn: false
-   });
-}}});
-  </script>
-  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <script type="text/javascript">
 const typesetMath = (el) => {
@@ -156,29 +141,29 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" id="toc-kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" class="nav-link active" data-scroll-target="#kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1">Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs</a></li>
-  <li><a href="#example" id="toc-example" class="nav-link" data-scroll-target="#example">Example</a></li>
+  <li><a href="#factorization-formulas" id="toc-factorization-formulas" class="nav-link active" data-scroll-target="#factorization-formulas">Factorization formula(s)</a>
+  <ul class="collapse">
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"></a></li>
+  <li><a href="#n-1" id="toc-n-1" class="nav-link" data-scroll-target="#n-1">( n = 1 )</a></li>
+  <li><a href="#n-2" id="toc-n-2" class="nav-link" data-scroll-target="#n-2">( n = 2 )</a></li>
+  <li><a href="#n-3" id="toc-n-3" class="nav-link" data-scroll-target="#n-3">( n = 3 )</a></li>
+  <li><a href="#n-4" id="toc-n-4" class="nav-link" data-scroll-target="#n-4">( n = 4 )</a></li>
+  </ul></li>
   </ul>
-<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="Calculemus-Kimball-Shortley-1.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li><li><a href="Calculemus-Kimball-Shortley-1.docx"><i class="bi bi-file-word"></i>MS Word</a></li></ul></div></nav>
+<div class="quarto-alternate-formats"><h2>Other Formats</h2><ul><li><a href="hydrogen_radial_wavefunctions.pdf"><i class="bi bi-file-pdf"></i>PDF</a></li></ul></div></nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Kimball-Shortley Iterative method for eigenvalue problems</h1>
+<h1 class="title">Hydrogen Dipole matrix elements using the Factorization method</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
-    <div>
-    <div class="quarto-title-meta-heading">Author</div>
-    <div class="quarto-title-meta-contents">
-             <p>LAAN </p>
-          </div>
-  </div>
     
   
     
@@ -189,100 +174,239 @@ window.Quarto = {
 </header>
 
 
-<hr>
-<section id="kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1" class="level3">
-<h3 class="anchored" data-anchor-id="kimbal-shortley-method-for-the-eigenvalue-problem-of-2nd-order-odes1">Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></h3>
-<p>Le’t assume the a 2nd-order ODE in normal form and fixed boundary conditions:</p>
-<p><span class="math display">
-\psi^{\prime\prime}(x) + U_0(x)\psi(x) = \lambda \psi(x), \qquad y(a) =y(b) = 0,
-</span></p>
-<p>formally being a Sturm-Liouville problem with kernel:</p>
-<p><span class="math display">
-\hat{L} = -\frac{d^2}{dx^2} + U_0(x)
-</span></p>
-<p>Upon a grid discretization <span class="math inline">[x_1,x_2,\cdots,x_N]</span> the SL eigenvalue equations translates to the below set of algebraic difference equations:</p>
-<p><span class="math display">
-\sum_{i=1}^{N} b_{jj}y_j = Ey_i, \qquad y_0 = y_{N+1} = 0, \qquad i=1(1)N
-</span> where, ideally, in a universe of exact computations, it is assumed that</p>
-<p><span class="math display">
-y_i \quad\to\quad \psi(x_i), \qquad \text{for}\qquad N\to\infty
-</span></p>
-<p>For such wavefunctions (for the given grid) we assume the following value for the inner product (overlap):</p>
-<p><span class="math display">
-N_{\psi\phi} = \langle \psi|\phi\rangle :=\int_a^b dx \psi(x)\phi(x) = \sum_i c_i\psi_i\phi_i
-</span></p>
-<p>Introduction of this quadrature rule for the inner product allows to define the norm of a function as:</p>
-<p><span class="math display">
-N_\phi := \sqrt{\langle \phi|\phi\rangle}
-</span></p>
-<p>and the following quantity (in numerical analysis known as Rayleigh quotient (RQ), in quantum mechanics, the hamiltonian’s expectation value for the quantum state <span class="math inline">\Phi</span>):</p>
-<p><span class="math display">
-E[\phi] :=\frac{\langle \phi|B|\phi\rangle}{\langle \phi|\phi\rangle } = \frac{\sum_{ij}c_ib_{ij}\phi_i\phi_j}{\sum_i c_i\phi_i^2}
-</span></p>
-<p>The above expression for the RQ (or energy) is essentially a functional rather than a function, as it depends on the entire <span class="math inline">\phi(x)</span> via the discretized values <span class="math inline">\phi_i</span>. We wish to examine its variation upon the variation of the values <span class="math inline">\phi_i</span>; performing the relevant algebra and pointing that,</p>
-<p><span class="math display">
-\begin{aligned}
-\frac{\partial}{\partial \phi_i}(\langle \phi|B\phi\rangle) &amp; = 2 c_i\sum_j b_{ij}\phi_j, \qquad\text{when}\qquad c_ib_{ij} = c_jb_{ji}
+<section id="factorization-formulas" class="level2">
+<h2 class="anchored" data-anchor-id="factorization-formulas">Factorization formula(s)</h2>
+<p>First we assume the relativistic (spinor) hydrogen wavefunction [Eq. (7.4.89) of Biedernharn-Louck book]:</p>
+<p><span class="math display">\[
+\phi_{Ekm}(\mathbf{r)} = R_{El(k)}(r)\chi_{km}(\Omega) =R_{El(k)}(r)\mathbf{Y}^{l_k\frac{1}{2}}_{j_km}(\Omega),
+\]</span></p>
+<p>with <span class="math inline">\(\mathbf{Y}^{l_k\frac{1}{2}}_{j_km}(\Omega)\)</span> given by (6.57) for the spin-1/2 case.</p>
+<p>The values of <span class="math inline">\(l_k\)</span> are related with <span class="math inline">\(k\)</span> and <span class="math inline">\(l\)</span> as: <span class="math display">\[\begin{align}
+\kappa &gt; 0  &amp; \quad\to\quad
+\begin{cases}
+l(\kappa) &amp; = \kappa = l
 \\
-\frac{\partial}{\partial \phi_i}(\langle \phi|\phi \rangle ) &amp;= 2c_i\phi_i
-\end{aligned}
-</span></p>
-<p>we find the below expression:</p>
-<p><span class="math display">
-\frac{\partial E[\phi]}{\partial \phi_i} = - c_i\frac{2}{N_\phi^2} \left[E[\phi] \phi - \sum_j b_{ij}\phi_j\right]
-</span></p>
-<p>We know that,</p>
-<p><span class="math display">
-\frac{\delta E[\psi]}{\delta \phi_i} = 0,\qquad\to\qquad\text{when $E[\psi]$ is a stationary value},
-</span></p>
-<p>minimum, or maximum; this is possible (again following standard calculus of variations algebra) when all partial derivatives of <span class="math inline">E[\phi]</span> with respect to <span class="math inline">\phi_i</span> vanish, namely,</p>
-<p><span class="math display">
-\frac{\partial}{\partial \phi_i} E[\phi] = 0 \quad\to\quad \sum_j b_{ij}\phi_j = E[\phi]\phi_i
-</span></p>
-<p>But the last equation is exactly the FD equation for the unknown solution, <span class="math inline">\psi</span>, which simply says that the solution gives the minimum/maximum value for the RQ (or energy).</p>
-<p>As our concern is to produce an iterative scheme for the solution we re-write the above condition as,</p>
-<p><span class="math display">
-(b_{ii} - E[\phi])\phi_i = -\sum_{j\ne i}b_{ij}\phi_j
+l(-\kappa) &amp; = \kappa -1 = l - 1
+\end{cases}
+\\
+  \kappa &lt; 0 &amp; \quad\to\quad
+\begin{cases}
+l(\kappa) &amp; = -\kappa - 1 = l
+\\
+l(-\kappa) &amp; = -\kappa = l + 1
+\end{cases}
+\end{align}\]</span> Since the spinor part is fully determined from the <span class="math inline">\(\kappa, m\)</span> values we focus on the radial part. Taken into account various symmetry properties we may arrive at the below (relativistic) formula as is expressed in 7.4.100 of Biedernharn-Louck book: <span class="math display">\[\begin{align}
+&amp;\left[1 - \kappa \left(\frac{d}{dr} + \frac{k+1}{r} \right)\right] R_{\eta l(\kappa)}(r)  =
+\left[1 - \varepsilon \frac{k^2}{\eta^2} \right]^{1/2}R_{\eta l(-\kappa)}(r)
+\\
+&amp;
+\\
+\eta &amp;=
+\begin{cases}
+n = 1,2,\cdots, &amp; E = -1/n^2 &lt; 0,\quad \varepsilon = +1
+\\
+1, &amp; E = 0, \quad \varepsilon = 0
+\\
+\frac{1}{k} &gt; 0 &amp; E = k^2&gt; 0,
+\quad \varepsilon = -1
+\end{cases}
+\end{align}\]</span></p>
+<p>From the above relation we may obtain a recurrence relation for the radial part of the corresponding (non-relativistic) radial functions:</p>
+<p><span id="eq-fac-1"><span class="math display">\[
+\left[1 + (l+1) \left(\frac{d}{dr} - \frac{l}{r} \right)\right]R_{\eta l}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}R_{\eta l+1}(r)
+\tag{1}\]</span></span></p>
+<p><span id="eq-fac-2"><span class="math display">\[
+\left[1 - l \left(\frac{d}{dr} + \frac{l+1}{r} \right)\right]R_{\eta l}(r)  =
+\left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2}R_{\eta l-1}(r)
+\tag{2}\]</span></span></p>
+<p>Let’s take the latter equation ( <a href="#eq-fac-2" class="quarto-xref">Equation&nbsp;2</a> ) and substitute <span class="math inline">\(l\to l+1\)</span>; then we instead get:</p>
+<p><span class="math display">\[
+\left[1 - (l+1) \left(\frac{d}{dr} + \frac{l+2}{r} \right)\right]R_{\eta l+1}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}R_{\eta l}(r)
+\]</span></p>
+<p>Now we continue by substitution of the <span class="math inline">\(P_{\eta l}(r)\)</span> radial function, defined by:</p>
+<p><span class="math display">\[
+R_{\eta l}(r) =\frac{1}{r}P_{\eta l}(r)
+\]</span></p>
+<p>In this case the recurrence relation becomes:</p>
+<p><span class="math display">\[
+\left[1 - (l+1) \left(\frac{d}{dr} + \frac{l+1}{r} \right)\right]P_{\eta l+1}(r)  =
+\left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}P_{\eta l}(r)
+\]</span></p>
+<p>This is one of the two main equations for the recurrence relation for <span class="math inline">\(P_{\eta l}(r)\)</span>; Multiplying both sides with <span class="math inline">\(P_{\eta^\prime l}(r)\)</span> and integrating over the radial variable we find,</p>
+<p><span class="math display">\[
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle - (l+1)  \langle P_{\eta^\prime l}| \left(\frac{d}{dr} + \frac{l+1}{r} \right)|P_{\eta l+1} \rangle = \delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+\]</span></p>
+<p>since the radial functions <span class="math inline">\(R_{\eta l}(r)\)</span> are assumed orthonormalized (orthogonal because are solutions of the same radial Hamiltonian); note that we define:</p>
+<p><span class="math display">\[
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle :=
+\int_0^\infty dr\, P_{\eta^\prime l}(r)P_{\eta l+1}(r) =  \int_0^\infty dr\, r^2 R_{\eta^\prime l}(r)R_{\eta l+1}(r)
+\]</span></p>
+<p>Eventually we obtain the following relation:</p>
+<p><span id="eq-dmx-1"><span class="math display">\[
+\boxed{
+(l+1)  \langle P_{\eta^\prime l}| \left(\frac{d}{dr} + \frac{l+1}{r} \right)|P_{\eta l+1} \rangle =
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle -
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+}
+\tag{3}\]</span></span></p>
+<p>Also, by making the change <span class="math inline">\(l\to l-1\)</span> in ( <a href="#eq-fac-1" class="quarto-xref">Equation&nbsp;1</a> ) we obtain instead:</p>
+<p><span id="eq-dmx-2"><span class="math display">\[
+\boxed{
+l \langle P_{\eta^\prime l}| \left(\frac{d}{dr} - \frac{l}{r} \right)|P_{\eta l-1} \rangle =
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2} - \langle P_{\eta^\prime l}|P_{\eta l-1} \rangle
+}
+\tag{4}\]</span></span></p>
+<p>Note that we can arrive at the same relation if we instead have started from ( <a href="#eq-dmx-1" class="quarto-xref">Equation&nbsp;3</a> ), changing <span class="math inline">\(l\to l-1\)</span> and then using the boundary conditions (BCs) (also swapping the <span class="math inline">\(\eta \leftrightarrow \eta^\prime\)</span> between the states) to write:</p>
+<p><span class="math display">\[
+P_{\eta l}(a)P_{\eta l'}(b) = P_{\eta l}(a) P_{\eta l}(b),
+\]</span></p>
+<p>which hold for our case of infinitely extended space ( <span class="math inline">\(P(0) = 0\)</span> and <span class="math inline">\(P(r\to\infty) \to 0\)</span> ). The latter BCs (needed to ensure the self-adjointess of the momentum operator), require <span class="math inline">\(\langle P_{\eta l}|P^\prime_{\eta l^\prime}\rangle = -\langle P^\prime_{\eta l}|P_{\eta l^\prime}\rangle\)</span> .</p>
+<p>We notice that the second term in the LHS of ( <a href="#eq-dmx-1" class="quarto-xref">Equation&nbsp;3</a> and <a href="#eq-dmx-2" class="quarto-xref">Equation&nbsp;4</a>) is the radial dipole operator in the velocity gauge for transitions <span class="math inline">\(l\to l+1\)</span> and <span class="math inline">\(l\to l-1\)</span> respectively; then we can write:</p>
+<p><span id="eq-dmx-11"><span class="math display">\[
+d^{(v)}_{\eta^\prime l;\eta l+1} = \frac{1}{l+1}
+\left[
+\langle P_{\eta^\prime l}|P_{\eta l+1} \rangle - \delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{(l+1)^2}{\eta^2} \right]^{1/2}
+\right]
+\tag{5}\]</span></span></p>
+<p>and</p>
+<p><span class="math display">\[
+d^{v}_{\eta^\prime l;\eta l-1} = - \frac{1}{l}
+\left[ \langle P_{\eta^\prime l}|P_{\eta l-1} \rangle -
+\delta_{\eta^\prime\eta} \left[1 - \varepsilon \frac{l^2}{\eta^2} \right]^{1/2}  
+\right]
+\]</span></p>
+<section id="section" class="level3">
+<h3 class="anchored" data-anchor-id="section"></h3>
+<p><em>We then reach at the important conclusion that for the calculation of the dipole matrix elements we only need to calculate the overlap integrals between the involved states; this makes redundant the calculation of matrix elements between states and their derivatives as well as non-diagonal matrix elements of the</em> <span class="math inline">\(1/r\)</span></p>
+<p>In the below we give few specific examples for the case of hydrogen.</p>
+<p><strong>Note:</strong> need to check whether the below relation holds generally:</p>
+<p><span class="math display">\[
+\langle P_{nl}|(\frac{d}{dr} + \frac{l+1}{r})|P_{nl+1}\rangle = 0,
+\]</span></p>
+<p>if non-zero it would correspond to a transition (say EM transition) with a static field (<span class="math inline">\(\omega = 0\)</span>), with the exchange of angular momentum <span class="math inline">\((l=1)\)</span> without exchanging energy.</p>
+<section id="normalized-radial-wavefunctions-for-hydrogen" class="level4">
+<h4 class="anchored" data-anchor-id="normalized-radial-wavefunctions-for-hydrogen">Normalized Radial Wavefunctions for Hydrogen</h4>
+<p>First we resume the properties for the hydrogen wavefunction. As usual, we use atomic units <span class="math inline">\(\hbar=m_e=e=1/4\pi\varepsilon_0=1)\)</span>. We also assume, the radial wavefunctions $R_{nl}(r) $ are normalized such that:</p>
+<p><span class="math display">\[
+\int_0^\infty |R_{nl}(r)|^2 r^2 \, dr = 1
+\]</span></p>
+<p>let’s take the the <span class="math inline">\(2s \to 3p\)</span> transition; the two radial (reduced) functions are given by,</p>
+<p><span class="math display">\[
+P_{20}(r) = \frac{1}{2\sqrt 2}(2-r)e^{-r/2}, \qquad P_{31}(r) = \frac{4}{81\sqrt 6}r(6-r)e^{-r/3}
+\]</span></p>
+<p>We apply (<a href="#eq-dmx-1" class="quarto-xref">Equation&nbsp;3</a>) for this case with <span class="math inline">\(\varepsilon = - 1, \eta = 0,1,2,\dots\)</span> and <span class="math inline">\((n^\prime,l)=(2,0) \to (n,l) = (3,1)\)</span>; since the energy differs we have <span class="math inline">\(\delta_{\eta^\prime\eta=0}\)</span> and need to verify the below equation:</p>
+<p><span id="eq-dmx-20-31"><span class="math display">\[
+(0+1) \left( \langle P_{20}|P^\prime_{31}\rangle +  \langle P_{20}|\frac{0+1}{r}|P_{31}\rangle\right)
+= \langle P_{20}|P_{31}\rangle
 \quad\to\quad
-\boxed{\phi_i = \frac{\sum_{j\ne i}b_{ij}\phi_j}{E[\phi]-b_{ii}}, \qquad i=1(1)N}
-</span></p>
-<p>So, now we can write down few remarks for this central (iterative) equation of the present discussion:</p>
-<ul>
-<li><p>For the above expression it was assumed <span class="math inline">\boxed{c_ib_{ij}=c_jb{ji}}</span></p></li>
-<li><p>the weight coefficients, <span class="math inline">c_i</span> appear in the updating formula via the <span class="math inline">E[\phi]</span> expression and possibly in the <span class="math inline">b_[ij]</span> coefficients</p></li>
-<li><p>when <span class="math inline">c_i=</span> constant for all <span class="math inline">i=1 (1)N</span> then disappear from the expression for <span class="math inline">E[\phi]</span> and could be introduced via the <span class="math inline">b_{ij}</span> constants only.</p></li>
-</ul>
-</section>
-<section id="example" class="level2">
-<h2 class="anchored" data-anchor-id="example">Example</h2>
-<p>Let’s consider the below 2nd-order DE:</p>
-<p><span class="math display">
--\frac{1}{2}\frac{dy^2}{dx^2} + V(x)y(x) = Ey(x)
-</span></p>
-<p>Then upon discretization with a step <span class="math inline">h</span>, and a three-point stencil for the 2nd derivative, we have the following rule holding for the values of the wavefunction on the grid points:</p>
-<p><span class="math display">
-\begin{aligned}
--\frac{1}{2h^2}(y_{i-1} -2y_i + y_{i+1}) + V_iy_i  &amp;= Ey_i, \qquad i = 1(1)N.
+\langle P_{20}|P^\prime_{31}\rangle +  \langle P_{20}|\frac{1}{r}|P_{31}\rangle = \langle P_{20}|P_{31}\rangle
+\tag{6}\]</span></span></p>
+<p>The integrations for the given radial functions are quite straightforward to obtain by various means: <span class="math display">\[\begin{align}
+\langle P_{20}|P^\prime_{31}\rangle &amp;= \frac{88128}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
 \\
-y_0 = y_{N+1} &amp;= 0
-\end{aligned}
-</span></p>
-<p>So the updating formula for the radial functions is as:</p>
-<p><span class="math display">
-y_i = -\frac{y_{i+1}/h^2 + y_{i-1}/h^2}{2E - (\frac{2}{h^2}+2V_i )}, \qquad i=1(1)N
-</span></p>
-<p>For a grid in the range <span class="math inline">[a,b]=[0,b]</span> we assume the fixed boundary conditions <span class="math inline">y_0 = y_{N+1} = 0</span>.</p>
+\langle P_{20}|\frac{1}{r}|P_{31}\rangle &amp;= \frac{5184}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
+\\
+\langle P_{20}|P_{31}\rangle &amp;= \frac{93312}{3125} \times \frac{1}{2\sqrt 2} \times\frac{4}{81\sqrt 6}
+\end{align}\]</span></p>
+<p>It’s not difficult that to see that ( <a href="#eq-dmx-20-31" class="quarto-xref">Equation&nbsp;6</a> ) holds since 88128 + 5184 = 93312.</p>
+<p>We can also check the case where the principal quantum number is the same; for example the validity of (<a href="#eq-dmx-1" class="quarto-xref">Equation&nbsp;3</a>) for <span class="math inline">\(\eta = n=3, l=0\to1\)</span> (so, <span class="math inline">\(\varepsilon = 1\)</span>),</p>
+<p><span class="math display">\[
+(0+1)  \langle P_{30}| \left(\frac{d}{dr} + \frac{0+1}{r} \right)|P_{31} \rangle =
+\langle P_{3 0}|P_{31} \rangle - \left[1 -\frac{(0+1)^2}{3^2} \right]^{1/2}
+\]</span></p>
+<p>The LHS is identically zero, so it remains to show that,</p>
+<p><span class="math display">\[
+\langle P_{3 0}|P_{31} \rangle = \frac{\sqrt{8}}{3}
+\]</span></p>
+<p>We have for the integral</p>
+<p><span class="math display">\[
+\langle P_{30}|P_{31}\rangle = \int_0^\infty dr \frac{2}{81\sqrt{3}} r\left(27 - 18r + 2r^2 \right) e^{-r/3} \times \frac{8}{27\sqrt{6}} , r \left(1 - \frac{r}{6} \right) e^{-r/3}
+\]</span></p>
+<hr>
+</section>
+</section>
+<section id="n-1" class="level3">
+<h3 class="anchored" data-anchor-id="n-1">( n = 1 )</h3>
+<ul>
+<li>( l = 0 )</li>
+</ul>
+<p><span class="math display">\[
+R_{10}(r) = 2 e^{-r}
+\]</span></p>
+<hr>
+</section>
+<section id="n-2" class="level3">
+<h3 class="anchored" data-anchor-id="n-2">( n = 2 )</h3>
+<ul>
+<li>( l = 0 )</li>
+</ul>
+<p><span class="math display">\[
+R_{20}(r) = \frac{1}{\sqrt{2}} \left(1 - \frac{r}{2} \right) e^{-r/2}
+\]</span></p>
+<ul>
+<li>( l = 1 )</li>
+</ul>
+<p><span class="math display">\[
+R_{21}(r) = \frac{1}{2\sqrt{6}} \, r \, e^{-r/2}
+\]</span></p>
+<hr>
+</section>
+<section id="n-3" class="level3">
+<h3 class="anchored" data-anchor-id="n-3">( n = 3 )</h3>
+<ul>
+<li>( l = 0 )</li>
+</ul>
+<p><span class="math display">\[
+R_{30}(r) = \frac{2}{81\sqrt{3}} \left(27 - 18r + 2r^2 \right) e^{-r/3}
+\]</span></p>
+<ul>
+<li>( l = 1 )</li>
+</ul>
+<p><span class="math display">\[
+R_{31}(r) = \frac{8}{27\sqrt{6}} \, r \left(1 - \frac{r}{6} \right) e^{-r/3}
+\]</span></p>
+<ul>
+<li>( l = 2 )</li>
+</ul>
+<p><span class="math display">\[
+R_{32}(r) = \frac{4}{81\sqrt{30}} \, r^2 \, e^{-r/3}
+\]</span></p>
+<hr>
+</section>
+<section id="n-4" class="level3">
+<h3 class="anchored" data-anchor-id="n-4">( n = 4 )</h3>
+<ul>
+<li>( l = 0 )</li>
+</ul>
+<p><span class="math display">\[
+R_{40}(r) = \frac{1}{96\sqrt{6}} \left(96 - 72r + 12r^2 - r^3 \right) e^{-r/4}
+\]</span></p>
+<ul>
+<li>( l = 1 )</li>
+</ul>
+<p><span class="math display">\[
+R_{41}(r) = \frac{1}{96\sqrt{30}} \, r \left(48 - 18r + r^2 \right) e^{-r/4}
+\]</span></p>
+<ul>
+<li>( l = 2 )</li>
+</ul>
+<p><span class="math display">\[
+R_{42}(r) = \frac{1}{768\sqrt{5}} \, r^2 \left(12 - r \right) e^{-r/4}
+\]</span></p>
+<ul>
+<li>( l = 3 )</li>
+</ul>
+<p><span class="math display">\[
+R_{43}(r) = \frac{1}{768\sqrt{35}} \, r^3 \, e^{-r/4}
+\]</span></p>
 
 
 </section>
+</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>‘<em>The Numerical Solution in Schrodinger’s Equation</em>’, G.E. Kimball and G.H. Shortley, Phys. Rev., <strong>45,</strong> 815, (1934)<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

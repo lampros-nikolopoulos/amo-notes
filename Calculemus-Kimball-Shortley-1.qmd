@@ -1,11 +1,20 @@
 ---
 title: "Kimball-Shortley Iterative method for eigenvalue problems"
 author: "LAAN"
+format:
+  html: 
+    code-fold: true
+    html-math-method: katex
+  pdf:
+    geometry: 
+      - top=30mm
+      - left=30mm
+  docx: default
 ---
 
 ------------------------------------------------------------------------
 
-### Kimbal-Shortley method for the eigenvalue problem of 2nd-order ODEs[^1]
+### Kimball-Shortley method for the eigenvalue problem of 2nd-order ODEs[^1]
 
 [^1]: '*The Numerical Solution in Schrodinger's Equation*', G.E. Kimball and G.H. Shortley, Phys. Rev., **45,** 815, (1934)
 
@@ -52,11 +61,11 @@ $$
 The above expression for the RQ (or energy) is essentially a functional rather than a function, as it depends on the entire $\phi(x)$ via the discretized values $\phi_i$. We wish to examine its variation upon the variation of the values $\phi_i$; performing the relevant algebra and pointing that,
 
 $$
-\begin{align}
+\begin{aligned}
 \frac{\partial}{\partial \phi_i}(\langle \phi|B\phi\rangle) & = 2 c_i\sum_j b_{ij}\phi_j, \qquad\text{when}\qquad c_ib_{ij} = c_jb_{ji}
 \\
 \frac{\partial}{\partial \phi_i}(\langle \phi|\phi \rangle ) &= 2c_i\phi_i
-\end{align}
+\end{aligned}
 $$
 
 we find the below expression:
@@ -120,3 +129,13 @@ y_i = -\frac{y_{i+1}/h^2 + y_{i-1}/h^2}{2E - (\frac{2}{h^2}+2V_i )}, \qquad i=1(
 $$
 
 For a grid in the range $[a,b]=[0,b]$ we assume the fixed boundary conditions $y_0 = y_{N+1} = 0$.
+
+::: callout-note
+## Numerical
+
+In practice the above update equation is implemented as
+
+$$
+y_i = \frac{1}{2}\frac{y_{i+1} + y_{i-1}}{1 - h^2(V_i-E )}, \qquad i=1(1)N
+$$
+:::
